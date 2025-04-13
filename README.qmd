@@ -1,0 +1,87 @@
+---
+format: gfm
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# broom.asreml
+
+<!-- badges: start -->
+
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+<!-- badges: end -->
+
+The `broom.asreml` provides tidy format for extracting model components for asreml objects.
+
+## Installation
+
+You can install the development version of broom.asreml from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("pak")
+pak::pak("emitanaka/broom.asreml")
+```
+
+## Example
+
+```{r}
+#| message: false
+#| output: false
+library(asreml)
+library(broom.asreml)
+fit <- asreml(yield ~ Variety, 
+              random = ~Column + Row, 
+              data = wheat)
+```
+
+## Single row summary of model
+
+```{r}
+glance(fit)
+```
+
+## Tidy model parameters
+
+
+### Fixed effects (E-BLUEs)
+
+```{r}
+tidy(fit, "fixed")
+```
+
+### Random effects (E-BLUPs)
+
+```{r}
+tidy(fit, "random")
+```
+
+### Variance components (REML estimates)
+
+```{r}
+tidy(fit, "vcomp")
+```
+
+### Wald test 
+
+```{r}
+tidy(fit, "wald")
+```
+
+## Augment data with model information
+
+```{r}
+augment(fit)
+```
+
+
+
+
