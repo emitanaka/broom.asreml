@@ -40,7 +40,7 @@ tidy.asreml <- function(x, type = c("all", "fixed", "random", "vcomp", "wald"), 
 
          },
          "wald" = {
-           res <- wald(x, ...)
+           res <- asreml::wald.asreml(x, ...)
            rw <- rownames(res)
            rownames(res) <- NULL
            tibble::tibble(term = rw,
