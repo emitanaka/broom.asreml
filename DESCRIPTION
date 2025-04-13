@@ -16,3 +16,5 @@ Imports:
 Depends: 
     R (>= 3.5)
 LazyData: true
+URL: https://github.com/emitanaka/broom.asreml
+BugReports: https://github.com/emitanaka/broom.asreml/issues
