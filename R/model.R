@@ -21,3 +21,24 @@ converge_asreml <- function(object, iter_max = 20, step = 0.0001, trace = TRUE) 
   }
   object
 }
+
+
+asreml_converge <- function(..., .iter_max = 10) {
+  fit <- asreml(...)
+  iter <- 1
+  while(!fit$converge && iter < .iter_max ) {
+    fit <- update(fit)
+  }
+  if(!fit$converge) cli::cli_alert_danger("The model didn't converge!")
+  if(fit$converge) cli::cli_alert_success("The model converged.")
+  fit
+}
+
+#' Extract the model frame
+#'
+#' @param x An asreml object
+#'
+#' @export
+model.frame.asreml <- function(x, ...) {
+  tibble::as_tibble(x$mf)
+}
