@@ -11,6 +11,7 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Imports: 
     asreml,
+    cli,
     dplyr,
     generics,
     tibble
@@ -19,3 +20,6 @@ Depends:
 LazyData: true
 URL: https://github.com/emitanaka/broom.asreml
 BugReports: https://github.com/emitanaka/broom.asreml/issues
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
