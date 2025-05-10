@@ -2,7 +2,9 @@
 
 S3method(augment,asreml)
 S3method(glance,asreml)
+S3method(model.frame,asreml)
 S3method(tidy,asreml)
+export(asreml_converge)
 export(augment)
 export(converge_asreml)
 export(glance)
