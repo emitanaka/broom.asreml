@@ -6,8 +6,16 @@
 generics::tidy
 
 
+#' Tidy an asreml object
+#'
+#' Get the model components.
+#'
+#' @param x An asreml object.
+#' @param type The type of summary to get.
+#' @param ... Extra arguments parsed into `asreml::wald` function.
+#'
 #' @export
-tidy.asreml <- function(x, type = c("all", "fixed", "random", "vcomp", "wald"), ...) {
+tidy.asreml <- function(x, type = c("all", "fixed", "random", "vcomp", "varcomp", "wald"), ...) {
   type <- match.arg(type)
   switch(type,
          "all" = {
@@ -20,13 +28,15 @@ tidy.asreml <- function(x, type = c("all", "fixed", "random", "vcomp", "wald"), 
           fr <- coef(x)$fixed
           rw <- rownames(fr)
           rownames(fr) <- NULL
-          tibble::tibble(term = rw, estimate = fr[, "effect", drop = TRUE])
+          tibble::tibble(term = rw, estimate = fr[, "effect", drop = TRUE],
+                         std.error = x$vcoeff$fixed)
          },
          "random" = {
            rr <- coef(x)$random
            rw <- rownames(rr)
            rownames(rr) <- NULL
-           tibble::tibble(term = rw, estimate = rr[, "effect", drop = TRUE])
+           tibble::tibble(term = rw, estimate = rr[, "effect", drop = TRUE],
+                          std.error = x$vcoeff$random)
          },
          "vcomp" = {
            vr <- summary(x)$varcomp
@@ -39,6 +49,7 @@ tidy.asreml <- function(x, type = c("all", "fixed", "random", "vcomp", "wald"), 
                           constraint = vr[, "bound", drop = TRUE])
 
          },
+         "varcomp" = tidy(x, "vcomp"),
          "wald" = {
            res <- asreml::wald.asreml(x, ...)
            rw <- rownames(res)
