@@ -3,7 +3,13 @@
 #' @export
 generics::glance
 
-
+#' Glance at an asreml object
+#'
+#' Provides a single row of model summaries
+#'
+#' @param x An asreml object.
+#' @param ... Currently does nothing.
+#'
 #' @export
 glance.asreml <- function(x, ...) {
   k <- x$nwv + nrow(x$coefficients$fixed)
