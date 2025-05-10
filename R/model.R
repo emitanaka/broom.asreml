@@ -15,23 +15,26 @@ converge_asreml <- function(object, iter_max = 20, step = 0.0001, trace = TRUE) 
     object <- asreml::update.asreml(object, trace = trace, stepsize = step)
     iter <- iter + 1
     if(iter > iter_max) {
-      warning("Model did not converge after ", iter_max, " iterations.")
+      cli::cli_alert_danger("Model did not converge after ", iter_max, " iterations.")
       break
     }
+  }
+  if(object$conv) {
+    cli::cli_alert_success("The model converged.")
   }
   object
 }
 
 
-asreml_converge <- function(..., .iter_max = 10) {
-  fit <- asreml(...)
-  iter <- 1
-  while(!fit$converge && iter < .iter_max ) {
-    fit <- update(fit)
-  }
-  if(!fit$converge) cli::cli_alert_danger("The model didn't converge!")
-  if(fit$converge) cli::cli_alert_success("The model converged.")
-  fit
+#' Fit the asreml model until it converges
+#'
+#' @param ... All the arguments for asreml::asreml
+#' @param .iter_max The maximum number of iterations to perform.
+#'
+#' @export
+asreml_converge <- function(..., .iter_max = 20, .step = 0.0001, .trace = TRUE) {
+  fit <- asreml::asreml(...)
+  converge_asreml(fit, iter_max = .iter_max, step = .step, trace = .trace)
 }
 
 #' Extract the model frame
@@ -42,3 +45,7 @@ asreml_converge <- function(..., .iter_max = 10) {
 model.frame.asreml <- function(x, ...) {
   tibble::as_tibble(x$mf)
 }
+
+
+
+
