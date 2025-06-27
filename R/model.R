@@ -12,7 +12,7 @@
 converge_asreml <- function(object, iter_max = 20, step = 0.0001, trace = TRUE) {
   iter <- 1
   while(!object$conv) {
-    object <- asreml::update.asreml(object, trace = trace, stepsize = step)
+    object <- suppressWarnings(asreml::update.asreml(object, trace = trace, stepsize = step))
     iter <- iter + 1
     if(iter > iter_max) {
       cli::cli_alert_danger("Model did not converge after ", iter_max, " iterations.")
