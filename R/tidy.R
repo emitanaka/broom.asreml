@@ -29,14 +29,14 @@ tidy.asreml <- function(x, type = c("all", "fixed", "random", "vcomp", "varcomp"
           rw <- rownames(fr)
           rownames(fr) <- NULL
           tibble::tibble(term = rw, estimate = fr[, "effect", drop = TRUE],
-                         std.error = x$vcoeff$fixed)
+                         std.error = sqrt(x$vcoeff$fixed * x$sigma2))
          },
          "random" = {
            rr <- coef(x)$random
            rw <- rownames(rr)
            rownames(rr) <- NULL
            tibble::tibble(term = rw, estimate = rr[, "effect", drop = TRUE],
-                          std.error = x$vcoeff$random)
+                          std.error = sqrt(x$vcoeff$random * x$sigma2))
          },
          "vcomp" = {
            vr <- summary(x)$varcomp
