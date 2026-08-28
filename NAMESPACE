@@ -4,7 +4,7 @@ S3method(augment,asreml)
 S3method(glance,asreml)
 S3method(model.frame,asreml)
 S3method(tidy,asreml)
-export(bootstrap_asreml)
+export(bootstrap_stat)
 export(converge_asreml)
 importFrom(generics,
   augment,

@@ -30,6 +30,16 @@ variables.}
 
 \item{...}{Does nothing yet.}
 }
+\value{
+Returns a tibble object with each row corresponding to one observation and columns:
+\itemize{
+\item \code{.fitted}: the linear predictor X beta + Z u
+\item \code{.resid}: the residuals y - X beta + Z u
+\item \code{.hat}: the hat values
+\item \code{.fixed}: the predicted value for fixed effect only X beta
+\item \code{.std.resid.conditional}: the studentised conditional residual
+}
+}
 \description{
 If the fitted model includes \code{aom = TRUE} then also computes the
 studentised conditional residual.

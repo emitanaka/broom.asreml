@@ -1,5 +1,6 @@
 ---
 format: gfm
+df-print: default
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -11,6 +12,7 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/README-",
   out.width = "100%"
 )
+library(generics)
 ```
 
 # broom.asreml
@@ -28,7 +30,7 @@ You can install the development version of broom.asreml from [GitHub](https://gi
 
 ``` r
 # install.packages("pak")
-pak::pak("emitanaka/broom.asreml")
+pak::pak("anu-aagi/broom.asreml")
 ```
 
 ## Example
@@ -38,9 +40,7 @@ pak::pak("emitanaka/broom.asreml")
 #| output: false
 library(asreml)
 library(broom.asreml)
-fit <- asreml(yield ~ Variety, 
-              random = ~Column + Row, 
-              data = wheat)
+fit <- asreml(yield ~ Variety, random = ~ Column + Row, data = wheat)
 ```
 
 ## Single row summary of model

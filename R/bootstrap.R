@@ -1,3 +1,19 @@
+#' Parametric bootstrap for an asreml model
+#'
+#' Simulate the data for a given asreml model
+#'
+#' @inheritParams bootstrap_stat
+#'
+bootstrap_data <- function(
+  model,
+  nsim = 1,
+  random = NULL,
+  type = "parametric"
+) {
+  stop_if_not_asreml(model)
+}
+
+
 #' Parametric bootstrap for an asreml model.
 #'
 #' @description
@@ -10,9 +26,6 @@
 #'   (the statistic to bootstrap).
 #' @param use.u A logical indicating whether to resample random effects, or only
 #' resample residuals.
-#' @param source The known genomic relationship matrix (GRM) used in `model` fitted using `asreml::vm()`, provided as a named list.
-#' When not provided (an empty list by default), the GRM variable used for `vm` calling will be searched in the global environment.
-#' @param seed Optional integer seed for reproducibility.
 #' @param ... Additional arguments passed to [boot::boot()].
 #'
 #' @return A `boot` object.
@@ -27,7 +40,7 @@
 #'
 #' @author Yidi Deng
 #' @export
-bootstrap_asreml <- function(
+bootstrap_stat <- function(
   model,
   FUN,
   nsim = 1,
@@ -36,9 +49,7 @@ bootstrap_asreml <- function(
   seed = NULL,
   ...
 ) {
-  if (!inherits(model, "asreml")) {
-    stop("`model` must be an `asreml` object.")
-  }
+  stop_if_not_asreml(model)
 
   # Get model frame
   design_default <- asreml::asreml.options()$design
@@ -292,18 +303,18 @@ check_design_exists <- function(
   if (build_design && build_mf) {
     design_default <- asreml::asreml.options()$design
     asreml::asreml.options(design = TRUE)
-    model <- asreml::update.asreml(model, model.frame = TRUE)
+    model <- asreml::update.asreml(model, model.frame = TRUE, trace = FALSE)
     asreml::asreml.options(design = design_default)
   }
 
   if (!build_design && build_mf) {
-    model <- asreml::update.asreml(model, model.frame = TRUE)
+    model <- asreml::update.asreml(model, model.frame = TRUE, trace = FALSE)
   }
 
   if (build_design && !build_mf) {
     design_default <- asreml::asreml.options()$design
     asreml::asreml.options(design = TRUE)
-    model <- asreml::update.asreml(model, model.frame = TRUE)
+    model <- asreml::update.asreml(model, model.frame = TRUE, trace = FALSE)
     asreml::asreml.options(design = design_default)
   }
 

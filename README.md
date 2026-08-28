@@ -20,7 +20,7 @@ You can install the development version of broom.asreml from
 
 ``` r
 # install.packages("pak")
-pak::pak("emitanaka/broom.asreml")
+pak::pak("anu-aagi/broom.asreml")
 ```
 
 ## Example
@@ -28,9 +28,7 @@ pak::pak("emitanaka/broom.asreml")
 ``` r
 library(asreml)
 library(broom.asreml)
-fit <- asreml(yield ~ Variety, 
-              random = ~Column + Row, 
-              data = wheat)
+fit <- asreml(yield ~ Variety, random = ~ Column + Row, data = wheat)
 ```
 
 ## Single row summary of model
@@ -49,39 +47,39 @@ glance(fit)
 
 ``` r
 tidy(fit, "fixed")
-#> # A tibble: 533 × 2
-#>    term        estimate
-#>    <chr>          <dbl>
-#>  1 (Intercept)   3294. 
-#>  2 Variety_1        0  
-#>  3 Variety_2     -123. 
-#>  4 Variety_3     -334. 
-#>  5 Variety_4     -122. 
-#>  6 Variety_5     -847. 
-#>  7 Variety_6     -686. 
-#>  8 Variety_7     -660. 
-#>  9 Variety_8       26.5
-#> 10 Variety_9     -264. 
-#> # ℹ 523 more rows
+#> # A tibble: 535 × 6
+#>    term        group       level estimate std.error statistic
+#>    <chr>       <chr>       <chr>    <dbl>     <dbl>     <dbl>
+#>  1 (Intercept) (Intercept) <NA>    3294.       310.   10.6   
+#>  2 Variety_1   Variety     1          0          0   NaN     
+#>  3 Variety_2   Variety     2       -123.       398.   -0.308 
+#>  4 Variety_3   Variety     3       -334.       397.   -0.842 
+#>  5 Variety_4   Variety     4       -122.       398.   -0.305 
+#>  6 Variety_5   Variety     5       -847.       398.   -2.13  
+#>  7 Variety_6   Variety     6       -686.       398.   -1.72  
+#>  8 Variety_7   Variety     7       -660.       397.   -1.66  
+#>  9 Variety_8   Variety     8         26.5      398.    0.0667
+#> 10 Variety_9   Variety     9       -264.       399.   -0.661 
+#> # ℹ 525 more rows
 ```
 
 ### Random effects (E-BLUPs)
 
 ``` r
 tidy(fit, "random")
-#> # A tibble: 77 × 2
-#>    term      estimate
-#>    <chr>        <dbl>
-#>  1 Column_1     99.5 
-#>  2 Column_2    160.  
-#>  3 Column_3    274.  
-#>  4 Column_4    217.  
-#>  5 Column_5    138.  
-#>  6 Column_6     -9.68
-#>  7 Column_7     33.2 
-#>  8 Column_8   -125.  
-#>  9 Column_9   -279.  
-#> 10 Column_10  -509.  
+#> # A tibble: 77 × 6
+#>    term      group  level estimate std.error statistic
+#>    <chr>     <chr>  <chr>    <dbl>     <dbl>     <dbl>
+#>  1 Column_1  Column 1        99.5       101.    0.982 
+#>  2 Column_2  Column 2       160.        106.    1.51  
+#>  3 Column_3  Column 3       274.        103.    2.66  
+#>  4 Column_4  Column 4       217.        106.    2.05  
+#>  5 Column_5  Column 5       138.        106.    1.31  
+#>  6 Column_6  Column 6        -9.68      106.   -0.0913
+#>  7 Column_7  Column 7        33.2       104.    0.320 
+#>  8 Column_8  Column 8      -125.        105.   -1.19  
+#>  9 Column_9  Column 9      -279.        108.   -2.59  
+#> 10 Column_10 Column 10     -509.        105.   -4.86  
 #> # ℹ 67 more rows
 ```
 
@@ -113,18 +111,23 @@ tidy(fit, "wald")
 
 ``` r
 augment(fit)
-#> # A tibble: 670 × 9
-#>    yield Column Row   Variety units mv    .fitted .resid  .hat
-#>    <int> <fct>  <fct> <fct>   <fct> <fct>   <dbl>  <dbl> <dbl>
-#>  1  2652 1      1     526     1     1       2538.  114.  8557.
-#>  2  2691 2      1     526     2     1       2599.   92.5 9564.
-#>  3  2770 3      1     526     3     1       2713.   57.0 8949.
-#>  4  2896 4      1     526     4     1       2656.  240.  9546.
-#>  5  2473 5      1     526     5     1       2576. -103.  9485.
-#>  6  2317 6      1     526     6     1       2429. -112.  9562.
-#>  7  2323 7      1     526     7     1       2472. -149.  9083.
-#>  8  2261 8      1     526     8     1       2314.  -52.5 9327.
-#>  9  2424 9      1     526     9     1       2160.  264.  9957.
-#> 10  1899 10     1     526     10    1       1930.  -30.8 9310.
+#> A design matrix was not found in the asreml object. Building a design matrix.
+#> ASReml Version 4.2 28/08/2026 18:33:22
+#>           LogLik        Sigma2     DF     wall
+#>  1     -855.0716      74463.85    136   18:33:22
+#>  2     -855.0716      74463.88    136   18:33:22
+#> # A tibble: 670 × 10
+#>    yield Column Row   Variety units mv    .fitted .resid  .hat .fixed
+#>    <int> <fct>  <fct> <fct>   <fct> <fct>   <dbl>  <dbl> <dbl>  <dbl>
+#>  1  2652 1      1     526     1     1       2538.  114.  8557.  2390.
+#>  2  2691 2      1     526     2     1       2599.   92.5 9564.  2390.
+#>  3  2770 3      1     526     3     1       2713.   57.0 8949.  2390.
+#>  4  2896 4      1     526     4     1       2656.  240.  9546.  2390.
+#>  5  2473 5      1     526     5     1       2576. -103.  9485.  2390.
+#>  6  2317 6      1     526     6     1       2429. -112.  9562.  2390.
+#>  7  2323 7      1     526     7     1       2472. -149.  9083.  2390.
+#>  8  2261 8      1     526     8     1       2314.  -52.5 9327.  2390.
+#>  9  2424 9      1     526     9     1       2160.  264.  9957.  2390.
+#> 10  1899 10     1     526     10    1       1930.  -30.8 9310.  2390.
 #> # ℹ 660 more rows
 ```
