@@ -36,15 +36,21 @@ augment.asreml <- function(
   newdata = NULL,
   #se_fit = FALSE,
   #interval = c("none", "confidence", "prediction"),
-  #conf.level = 0.95,
+  #conf_level = 0.95,
   ...
 ) {
+  if (!is.null(x$call$family)) {
+    cli::cli_alert_danger(
+      "`augment.asreml` may not return correct results for models with a family."
+    )
+  }
   if (is.null(newdata)) {
     res <- data
     res$.fitted <- x$linear.predictors
     res$.resid <- x$residuals[, 1]
     res$.hat <- x$hat
     res$.fixed <- get_fixed_fit_asreml(x)
+
     res$.fitted.marginal <- res$.fixed
     res$.fitted.conditional <- res$.fitted
     res$.resid.marginal <- res$.fitted + res$.resid - res$.fixed
@@ -58,42 +64,42 @@ augment.asreml <- function(
   res
 }
 
+## this doesn't work as expected
+# update_fix <- function(x, data, ...) {
+#   if (is.null(newcall <- x$call) && is.null(newcall <- attr(x, "call"))) {
+#     stop("need an object with call component or attribute")
+#   }
+#   tempcall <- list(...)
+#   if (!is.null(tempcall$step.size)) {
+#     newcall$step.size <- tempcall$step.size
+#     tempcall$step.size <- NULL
+#   } else if (asreml::asreml.options()$update.step.size != 0.316) {
+#     newcall$step.size <- asreml::asreml.options()$update.step.size
+#   }
+#   if (length(tempcall)) {
+#     what <- !is.na(match(names(tempcall), names(newcall)))
+#     for (z in names(tempcall)[what]) {
+#       newcall[[z]] <- tempcall[[z]]
+#     }
+#     if (any(!what)) {
+#       newcall <- c(as.list(newcall), tempcall[!what])
+#       newcall <- as.call(newcall)
+#     }
+#   }
+#   con_fix <- function(sv) {
+#     lapply(sv, function(obj) {
+#       lapply(obj, function(ele) {
+#         ele$con <- rep("F", length(ele$con))
+#         ele
+#       })
+#     })
+#   }
 
-update_fix <- function(x, data, ...) {
-  if (is.null(newcall <- x$call) && is.null(newcall <- attr(x, "call"))) {
-    stop("need an object with call component or attribute")
-  }
-  tempcall <- list(...)
-  if (!is.null(tempcall$step.size)) {
-    newcall$step.size <- tempcall$step.size
-    tempcall$step.size <- NULL
-  } else if (asreml::asreml.options()$update.step.size != 0.316) {
-    newcall$step.size <- asreml::asreml.options()$update.step.size
-  }
-  if (length(tempcall)) {
-    what <- !is.na(match(names(tempcall), names(newcall)))
-    for (z in names(tempcall)[what]) {
-      newcall[[z]] <- tempcall[[z]]
-    }
-    if (any(!what)) {
-      newcall <- c(as.list(newcall), tempcall[!what])
-      newcall <- as.call(newcall)
-    }
-  }
-  con_fix <- function(sv) {
-    lapply(sv, function(obj) {
-      lapply(obj, function(ele) {
-        ele$con <- rep("F", length(ele$con))
-        ele
-      })
-    })
-  }
+#   newcall$R.param <- con_fix(x$R.param)
+#   newcall$G.param <- con_fix(x$G.param)
+#   newcall$data <- data
+#   newcall$trace <- FALSE
 
-  newcall$R.param <- con_fix(x$R.param)
-  newcall$G.param <- con_fix(x$G.param)
-  newcall$data <- data
-  newcall$trace <- FALSE
-
-  # make con all fixed
-  eval(newcall, sys.parent())
-}
+#   # make con all fixed
+#   eval(newcall, sys.parent())
+# }
