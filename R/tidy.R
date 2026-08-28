@@ -1,4 +1,7 @@
 clean_asreml_coef <- function(coef) {
+  if (is.null(coef)) {
+    return(NULL)
+  }
   tms <- attr(coef, "terms") # assume that terms appears in this order
   rw <- rownames(coef)
   group <- rw
@@ -49,6 +52,24 @@ clean_asreml_coef <- function(coef) {
 #' @param x An asreml object.
 #' @param type The type of summary to get.
 #' @param ... Extra arguments parsed into `asreml::wald` function.
+#'
+#' @return Returns a tibble with the following columns
+#'
+#' - type: whether it is the fixed effect, random effect, or variance component
+#' - term: the name of the term
+#' - group: the group name
+#' - level: the level if it is a factor
+#' - estimate: E-BLUE for fixed effects, E-BLUP for the random effecs and REML estimates for the variance components
+#' - std.error: the standard error of the estimate
+#' - statistic: the estimate divide it by standard error
+#' - constraint: the constraint used for the variance component
+#'
+#' @examples
+#' tidy(fit_besag_met, "fixed")
+#' tidy(fit_besag_met, "random")
+#' tidy(fit_besag_met, "vcomp")
+#'
+#'
 #' @importFrom generics tidy
 #' @export
 tidy.asreml <- function(
@@ -67,14 +88,20 @@ tidy.asreml <- function(
     },
     "fixed" = {
       fr <- x$coefficients$fixed
-      cc <- clean_asreml_coef(fr)
+      sr <- x$coefficients$sparse
+      fcc <- clean_asreml_coef(fr)
+      scc <- clean_asreml_coef(sr)
       tibble::tibble(
-        term = cc$term,
-        group = cc$group,
-        level = cc$level,
-        estimate = cc$coef,
-        std.error = sqrt(x$vcoeff$fixed * x$sigma2)
-      )
+        term = c(fcc$term, scc$term),
+        group = c(fcc$group, scc$group),
+        level = c(fcc$level, scc$level),
+        estimate = c(fcc$coef, scc$coef),
+        std.error = c(
+          sqrt(x$vcoeff$fixed * x$sigma2),
+          sqrt(x$vcoeff$sparse * x$sigma2)
+        )
+      ) |>
+        dplyr::mutate(statistic = estimate / std.error)
     },
     "random" = {
       rr <- x$coefficients$random
@@ -85,7 +112,8 @@ tidy.asreml <- function(
         level = cc$level,
         estimate = cc$coef,
         std.error = sqrt(x$vcoeff$random * x$sigma2)
-      )
+      ) |>
+        dplyr::mutate(statistic = estimate / std.error)
     },
     "vcomp" = {
       vr <- summary(x)$varcomp
