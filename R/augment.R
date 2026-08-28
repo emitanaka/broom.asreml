@@ -12,6 +12,15 @@
 #' @param conf.level The confidence level to use for the interval created.
 #' @param ... Does nothing yet.
 #'
+#' @return
+#' Returns a tibble object with each row corresponding to one observation and columns:
+#'
+#' - `.fitted`: the linear predictor X beta + Z u
+#' - `.resid`: the residuals y - X beta + Z u
+#' - `.hat`: the hat values
+#' - `.fixed`: the predicted value for fixed effect only X beta
+#' - `.std.resid.conditional`: the studentised conditional residual
+#'
 #' @importFrom generics augment
 #' @export
 augment.asreml <- function(
@@ -26,13 +35,14 @@ augment.asreml <- function(
   if (is.null(newdata)) {
     res <- data
     res$.fitted <- x$linear.predictors
-    # TODO
+    res$.resid <- x$residuals[, 1]
+    res$.hat <- x$hat
+    # TODO?
     # res$.fitted.marginal
     # res$.fitted.conditional
     # res$.resid.marginal
     # res$.resid.conditional
-    res$.resid <- x$residuals[, 1]
-    res$.hat <- x$hat
+    res$.fixed <- get_fixed_fit_asreml(x)
     if (!is.null(x$aom)) {
       res$.std.resid.conditional <- x$aom$R[, 2, drop = TRUE]
     }
