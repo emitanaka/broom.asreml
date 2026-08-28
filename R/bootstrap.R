@@ -234,9 +234,7 @@ bootstrap_stat <- function(
 #'
 #' @keywords internal
 get_fixed_fit_asreml <- function(model, source = list()) {
-  if (!inherits(model, "asreml")) {
-    stop("`model` must be an `asreml` object.")
-  }
+  stop_if_not_asreml(model)
 
   # Get model frame
   model <- check_design_exists(model, build_mf = FALSE, source = source)
@@ -278,7 +276,7 @@ check_design_exists <- function(
     # Get the design matrix
     design <- model$design
     if (is.null(design)) {
-      cli::cli_inform(
+      cli::cli_alert_info(
         "A design matrix was not found in the asreml object. Building a design matrix."
       )
       build_design <- TRUE
