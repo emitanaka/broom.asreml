@@ -5,7 +5,7 @@
 \alias{fit_besag_met}
 \title{A MET model fitted to agridat::besag.met data}
 \format{
-An object of class \code{asreml} of length 34.
+An object of class \code{asreml} of length 35.
 }
 \usage{
 fit_besag_met

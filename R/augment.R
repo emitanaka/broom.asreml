@@ -13,12 +13,19 @@
 #' @param ... Does nothing yet.
 #'
 #' @return
-#' Returns a tibble object with each row corresponding to one observation and columns:
+#' Returns a tibble object with each row corresponding to one observation and columns as below. The first 4 columns adopt the convention from broom.mixed and broom packages.
 #'
-#' - `.fitted`: the linear predictor X beta + Z u
-#' - `.resid`: the residuals y - X beta + Z u
+#' - `.fitted`: the linear predictor \eqn{\mathbf{X}\hat{\boldsymbol{\beta}} + \mathbf  {Z} \tilde{\boldsymbol{u}}}
+#' - `.resid`: the residuals \eqn{\boldsymbol{y} - \mathbf{X}\hat{\boldsymbol{\beta}} - \mathbf{Z} \tilde{\boldsymbol{u}}}
 #' - `.hat`: the hat values
-#' - `.fixed`: the predicted value for fixed effect only X beta
+#' - `.fixed`: the predicted value for fixed effect only \eqn{\mathbf{X}\hat{\boldsymbol{\beta}}}
+#'
+#' The columns with marginal and conditional suffixes are added to distinguish the two types of fitted values and residuals.
+#'
+#' - `.fitted.marginal`: the predicted value for marginal model \eqn{\mathbf{X}\hat{\boldsymbol{\beta}}}
+#' - `.fitted.conditional`: the predicted value for conditional model \eqn{\mathbf{X}\hat{\boldsymbol{\beta}} + \mathbf  {Z} \tilde{\boldsymbol{u}}}
+#' - `.resid.marginal`: the residuals for marginal model \eqn{\boldsymbol{y} - \mathbf{X}\hat{\boldsymbol{\beta}}}
+#' - `.resid.conditional`: the residuals for conditional model \eqn{\boldsymbol{y} - \mathbf{X}\hat{\boldsymbol{\beta}} - \mathbf{Z} \tilde{\boldsymbol{u}}}
 #' - `.std.resid.conditional`: the studentised conditional residual
 #'
 #' @importFrom generics augment
@@ -27,9 +34,9 @@ augment.asreml <- function(
   x,
   data = model.frame(x),
   newdata = NULL,
-  se_fit = FALSE,
-  interval = c("none", "confidence", "prediction"),
-  conf.level = 0.95,
+  #se_fit = FALSE,
+  #interval = c("none", "confidence", "prediction"),
+  #conf.level = 0.95,
   ...
 ) {
   if (is.null(newdata)) {
@@ -37,12 +44,11 @@ augment.asreml <- function(
     res$.fitted <- x$linear.predictors
     res$.resid <- x$residuals[, 1]
     res$.hat <- x$hat
-    # TODO?
-    # res$.fitted.marginal
-    # res$.fitted.conditional
-    # res$.resid.marginal
-    # res$.resid.conditional
     res$.fixed <- get_fixed_fit_asreml(x)
+    res$.fitted.marginal <- res$.fixed
+    res$.fitted.conditional <- res$.fitted
+    res$.resid.marginal <- res$.fitted + res$.resid - res$.fixed
+    res$.resid.conditional <- res$.resid
     if (!is.null(x$aom)) {
       res$.std.resid.conditional <- x$aom$R[, 2, drop = TRUE]
     }
@@ -86,6 +92,7 @@ update_fix <- function(x, data, ...) {
   newcall$R.param <- con_fix(x$R.param)
   newcall$G.param <- con_fix(x$G.param)
   newcall$data <- data
+  newcall$trace <- FALSE
 
   # make con all fixed
   eval(newcall, sys.parent())

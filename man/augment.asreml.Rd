@@ -4,15 +4,7 @@
 \alias{augment.asreml}
 \title{Augment data with information from an asreml object}
 \usage{
-\method{augment}{asreml}(
-  x,
-  data = model.frame(x),
-  newdata = NULL,
-  se_fit = FALSE,
-  interval = c("none", "confidence", "prediction"),
-  conf.level = 0.95,
-  ...
-)
+\method{augment}{asreml}(x, data = model.frame(x), newdata = NULL, ...)
 }
 \arguments{
 \item{x}{An asreml object.}
@@ -22,21 +14,29 @@
 \item{newdata}{A new data containing all the variables in the original data except the response
 variables.}
 
+\item{...}{Does nothing yet.}
+
 \item{se_fit}{Whether to get the .se.fit column or not.}
 
 \item{interval}{The type of confidence interval.}
 
 \item{conf.level}{The confidence level to use for the interval created.}
-
-\item{...}{Does nothing yet.}
 }
 \value{
-Returns a tibble object with each row corresponding to one observation and columns:
+Returns a tibble object with each row corresponding to one observation and columns as below. The first 4 columns adopt the convention from broom.mixed and broom packages.
 \itemize{
 \item \code{.fitted}: the linear predictor \eqn{\mathbf{X}\hat{\boldsymbol{\beta}} + \mathbf  {Z} \tilde{\boldsymbol{u}}}
-\item \code{.resid}: the residuals \eqn{\boldsymbol{y} - \mathbf{X}\hat{\boldsymbol{\beta}} + \mathbf{Z} \tilde{\boldsymbol{u}}}
+\item \code{.resid}: the residuals \eqn{\boldsymbol{y} - \mathbf{X}\hat{\boldsymbol{\beta}} - \mathbf{Z} \tilde{\boldsymbol{u}}}
 \item \code{.hat}: the hat values
 \item \code{.fixed}: the predicted value for fixed effect only \eqn{\mathbf{X}\hat{\boldsymbol{\beta}}}
+}
+
+The columns with marginal and conditional suffixes are added to distinguish the two types of fitted values and residuals.
+\itemize{
+\item \code{.fitted.marginal}: the predicted value for marginal model \eqn{\mathbf{X}\hat{\boldsymbol{\beta}}}
+\item \code{.fitted.conditional}: the predicted value for conditional model \eqn{\mathbf{X}\hat{\boldsymbol{\beta}} + \mathbf  {Z} \tilde{\boldsymbol{u}}}
+\item \code{.resid.marginal}: the residuals for marginal model \eqn{\boldsymbol{y} - \mathbf{X}\hat{\boldsymbol{\beta}}}
+\item \code{.resid.conditional}: the residuals for conditional model \eqn{\boldsymbol{y} - \mathbf{X}\hat{\boldsymbol{\beta}} - \mathbf{Z} \tilde{\boldsymbol{u}}}
 \item \code{.std.resid.conditional}: the studentised conditional residual
 }
 }
