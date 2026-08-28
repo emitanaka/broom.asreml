@@ -2,22 +2,28 @@ Package: broom.asreml
 Title: Tidy methods for asreml objects
 Version: 0.0.0.9000
 Authors@R: 
-    person("Emi", "Tanaka", , "dr.emi.tanaka@gmail.com", role = c("aut", "cre", "cph"),
-           comment = c(ORCID = "0000-0002-1455-259X"))
+    c(person("Emi", "Tanaka", , "dr.emi.tanaka@gmail.com", role = c("aut", "cre", "cph"),
+           comment = c(ORCID = "0000-0002-1455-259X")),
+      person(given = "Yidi", family = "Deng", role = c("ctb"), comment = c(ORCID = "0000-0003-0380-2124")))
 Description: Extracts and summaries asreml objects into a clean and tidy format.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 Imports: 
+    asremlPlus,
+    boot,
     cli,
     dplyr,
     generics,
+    Matrix,
     tibble
 Depends: 
     R (>= 3.5)
 LazyData: true
-URL: https://github.com/emitanaka/broom.asreml
-BugReports: https://github.com/emitanaka/broom.asreml/issues
+SystemRequirements:
+    asreml (>= 4.2.0)
+URL: https://github.com/anu-aagi/broom.asreml
+BugReports: https://github.com/anu-aagi/broom.asreml/issues
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
