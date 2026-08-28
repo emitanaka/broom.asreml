@@ -1,7 +1,6 @@
 ## code to prepare several asreml models
 
 library(asreml)
-library(agridat)
 library(tidyverse)
 devtools::load_all(".")
 
@@ -12,6 +11,8 @@ fit_chickweight <- asreml(
 )
 fit_chickweight <- converge_asreml(fit_chickweight)
 usethis::use_data(fit_chickweight, overwrite = TRUE)
+besag.met <- agridat::besag.met |>
+  mutate(across(c(col, row), as.factor))
 
 fit_besag_met <- asreml(
   yield ~ county,
@@ -20,8 +21,7 @@ fit_besag_met <- asreml(
     diag(county):col +
     fa(county, 2):gen,
   residual = ~ dsum(~ ar1(row):ar1(col) | county),
-  data = besag.met |>
-    mutate(across(c(col, row), as.factor)),
+  data = besag.met,
   aom = TRUE
 )
 fit_besag_met <- converge_asreml(fit_besag_met)
