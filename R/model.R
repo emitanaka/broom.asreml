@@ -12,7 +12,7 @@
 converge_asreml <- function(object, iter_max = 20, step = 0.0001, trace = TRUE) {
   iter <- 1
   while(!object$conv) {
-    object <- suppressWarnings(asreml::update.asreml(object, trace = trace, stepsize = step))
+    object <- suppressWarnings(update(object, trace = trace, stepsize = step))
     iter <- iter + 1
     if(iter > iter_max) {
       cli::cli_alert_danger("Model did not converge after ", iter_max, " iterations.")
@@ -25,17 +25,18 @@ converge_asreml <- function(object, iter_max = 20, step = 0.0001, trace = TRUE) 
   object
 }
 
-
-#' Fit the asreml model until it converges
-#'
-#' @param ... All the arguments for asreml::asreml
-#' @param .iter_max The maximum number of iterations to perform.
-#'
-#' @export
-asreml_converge <- function(..., .iter_max = 20, .step = 0.0001, .trace = TRUE) {
-  fit <- asreml::asreml(...)
-  converge_asreml(fit, iter_max = .iter_max, step = .step, trace = .trace)
-}
+# Do not use below as asreml call not allowed for CRAN
+#
+# Fit the asreml model until it converges
+#
+# @param ... All the arguments for asreml::asreml
+# @param .iter_max The maximum number of iterations to perform.
+#
+# @export
+# asreml_converge <- function(..., .iter_max = 20, .step = 0.0001, .trace = TRUE) {
+#   fit <- asreml::asreml(...)
+#   converge_asreml(fit, iter_max = .iter_max, step = .step, trace = .trace)
+# }
 
 #' Extract the model frame
 #'

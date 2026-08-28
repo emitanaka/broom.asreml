@@ -1,8 +1,3 @@
-
-#' @importFrom generics glance
-#' @export
-generics::glance
-
 #' Glance at an asreml object
 #'
 #' Provides a single row of model summaries

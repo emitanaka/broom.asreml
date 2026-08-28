@@ -52,7 +52,6 @@ clean_asreml_coef <- function(coef) {
 #' @param x An asreml object.
 #' @param type The type of summary to get.
 #' @param ... Extra arguments parsed into `asreml::wald` function.
-#'
 #' @exportS3Method generics::tidy
 tidy.asreml <- function(x, type = c("all", "fixed", "random", "vcomp", "varcomp", "wald"), ...) {
   type <- match.arg(type)
@@ -90,16 +89,17 @@ tidy.asreml <- function(x, type = c("all", "fixed", "random", "vcomp", "varcomp"
          },
          "varcomp" = tidy(x, "vcomp"),
          "wald" = {
-           res <- asreml::wald.asreml(x, ...)
-           rw <- rownames(res)
-           rownames(res) <- NULL
-           tibble::tibble(term = rw,
-                          df = res[, "Df", drop = TRUE],
-                          sumsq = res[, "Sum of Sq", drop = TRUE],
-                          statistic = res[, "Wald statistic", drop = TRUE],
-                          p.value = res[, "Pr(Chisq)", drop = TRUE])
-
-         })
+            res <- asreml::wald.asreml(x, ...)
+            rw <- rownames(res)
+            rownames(res) <- NULL
+            tibble::tibble(term = rw,
+                           df = res[, "Df", drop = TRUE],
+                           sumsq = res[, "Sum of Sq", drop = TRUE],
+                           statistic = res[, "Wald statistic", drop = TRUE],
+                           p.value = res[, "Pr(Chisq)", drop = TRUE])
+         
+          }
+         )
 }
 
 
