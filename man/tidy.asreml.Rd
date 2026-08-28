@@ -13,6 +13,26 @@
 
 \item{...}{Extra arguments parsed into \code{asreml::wald} function.}
 }
+\value{
+Returns a tibble with the following columns
+\itemize{
+\item type: whether it is the fixed effect, random effect, or variance component
+\item term: the name of the term
+\item group: the group name
+\item level: the level if it is a factor
+\item estimate: E-BLUE for fixed effects, E-BLUP for the random effecs and REML estimates for the variance components
+\item std.error: the standard error of the estimate
+\item statistic: the estimate divide it by standard error
+\item constraint: the constraint used for the variance component
+}
+}
 \description{
 Get the model components.
+}
+\examples{
+tidy(fit_besag_met, "fixed")
+tidy(fit_besag_met, "random")
+tidy(fit_besag_met, "vcomp")
+
+
 }
