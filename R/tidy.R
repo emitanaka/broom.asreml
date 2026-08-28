@@ -1,9 +1,6 @@
 
 
 
-#' @importFrom generics tidy
-#' @export
-generics::tidy
 
 
 clean_asreml_coef <- function(coef) {
@@ -56,7 +53,7 @@ clean_asreml_coef <- function(coef) {
 #' @param type The type of summary to get.
 #' @param ... Extra arguments parsed into `asreml::wald` function.
 #'
-#' @export
+#' @exportS3Method generics::tidy
 tidy.asreml <- function(x, type = c("all", "fixed", "random", "vcomp", "varcomp", "wald"), ...) {
   type <- match.arg(type)
   switch(type,

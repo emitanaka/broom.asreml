@@ -1,8 +1,3 @@
-#' @importFrom generics augment
-#' @export
-generics::augment
-
-
 #' Augment data with information from an asreml object
 #'
 #' If the fitted model includes `aom = TRUE` then also computes the
@@ -17,7 +12,7 @@ generics::augment
 #' @param conf.level The confidence level to use for the interval created.
 #' @param ... Does nothing yet.
 #'
-#' @export
+#' @exportS3Method generics::augment
 augment.asreml <- function(x,
                            data = model.frame(x),
                            newdata = NULL,
