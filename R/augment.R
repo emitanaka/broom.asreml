@@ -13,14 +13,16 @@
 #' @param ... Does nothing yet.
 #'
 #' @exportS3Method generics::augment
-augment.asreml <- function(x,
-                           data = model.frame(x),
-                           newdata = NULL,
-                           se_fit = FALSE,
-                           interval = c("none", "confidence", "prediction"),
-                           conf.level = 0.95,
-                           ...) {
-  if(is.null(newdata)) {
+augment.asreml <- function(
+  x,
+  data = model.frame(x),
+  newdata = NULL,
+  se_fit = FALSE,
+  interval = c("none", "confidence", "prediction"),
+  conf.level = 0.95,
+  ...
+) {
+  if (is.null(newdata)) {
     res <- data
     res$.fitted <- x$linear.predictors
     # TODO
@@ -30,7 +32,7 @@ augment.asreml <- function(x,
     # res$.resid.conditional
     res$.resid <- x$residuals[, 1]
     res$.hat <- x$hat
-    if(!is.null(x$aom)) {
+    if (!is.null(x$aom)) {
       res$.std.resid.conditional <- x$aom$R[, 2, drop = TRUE]
     }
   } else {
@@ -40,20 +42,22 @@ augment.asreml <- function(x,
 }
 
 
-update_fix <- function (x, data, ...) {
-  if (is.null(newcall <- x$call) && is.null(newcall <- attr(x, "call")))
+update_fix <- function(x, data, ...) {
+  if (is.null(newcall <- x$call) && is.null(newcall <- attr(x, "call"))) {
     stop("need an object with call component or attribute")
+  }
   tempcall <- list(...)
   if (!is.null(tempcall$step.size)) {
     newcall$step.size <- tempcall$step.size
     tempcall$step.size <- NULL
-  }
-  else if (asreml::asreml.options()$update.step.size != 0.316) {
+  } else if (asreml::asreml.options()$update.step.size != 0.316) {
     newcall$step.size <- asreml::asreml.options()$update.step.size
   }
   if (length(tempcall)) {
     what <- !is.na(match(names(tempcall), names(newcall)))
-    for (z in names(tempcall)[what]) newcall[[z]] <- tempcall[[z]]
+    for (z in names(tempcall)[what]) {
+      newcall[[z]] <- tempcall[[z]]
+    }
     if (any(!what)) {
       newcall <- c(as.list(newcall), tempcall[!what])
       newcall <- as.call(newcall)
@@ -75,5 +79,3 @@ update_fix <- function (x, data, ...) {
   # make con all fixed
   eval(newcall, sys.parent())
 }
-
-

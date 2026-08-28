@@ -1,4 +1,3 @@
-
 #' Update the model until it converges
 #'
 #' This function updates the model until it converges or reaches the maximum number of iterations.
@@ -9,17 +8,26 @@
 #' @param trace Whehther to show the model update information.
 #' @return An updated `asreml` object.
 #' @export
-converge_asreml <- function(object, iter_max = 20, step = 0.0001, trace = TRUE) {
+converge_asreml <- function(
+  object,
+  iter_max = 20,
+  step = 0.0001,
+  trace = TRUE
+) {
   iter <- 1
-  while(!object$conv) {
+  while (!object$conv) {
     object <- suppressWarnings(update(object, trace = trace, stepsize = step))
     iter <- iter + 1
-    if(iter > iter_max) {
-      cli::cli_alert_danger("Model did not converge after ", iter_max, " iterations.")
+    if (iter > iter_max) {
+      cli::cli_alert_danger(
+        "Model did not converge after ",
+        iter_max,
+        " iterations."
+      )
       break
     }
   }
-  if(object$conv) {
+  if (object$conv) {
     cli::cli_alert_success("The model converged.")
   }
   object
@@ -46,7 +54,3 @@ converge_asreml <- function(object, iter_max = 20, step = 0.0001, trace = TRUE) 
 model.frame.asreml <- function(x, ...) {
   tibble::as_tibble(x$mf)
 }
-
-
-
-

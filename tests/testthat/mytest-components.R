@@ -13,7 +13,7 @@ df <- tibble(gen = rep(lvl_gens, each = 10)) |>
   mutate(gen = factor(gen))
 
 
-fit <- asreml_converge(y ~ 1, random=~gen, data = df)
+fit <- asreml_converge(y ~ 1, random = ~gen, data = df)
 fit$coefficients
 fit$vcoeff
 vc <- fit$vparameters * fit$sigma2

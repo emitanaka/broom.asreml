@@ -1,4 +1,3 @@
-
 #' A MET model fitted to agridat::besag.met data
 #'
 #' The following data was fitted.
@@ -14,7 +13,6 @@
 #' ```
 #'
 "fit_besag_met"
-
 
 
 #' A random intercent and random slope model
