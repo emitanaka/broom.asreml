@@ -49,7 +49,8 @@ clean_asreml_coef <- function(coef) {
 #' @param x An asreml object.
 #' @param type The type of summary to get.
 #' @param ... Extra arguments parsed into `asreml::wald` function.
-#' @exportS3Method generics::tidy
+#' @importFrom generics tidy
+#' @export
 tidy.asreml <- function(
   x,
   type = c("all", "fixed", "random", "vcomp", "varcomp", "wald"),

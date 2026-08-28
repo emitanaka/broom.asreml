@@ -4,8 +4,8 @@
 #'
 #' @param x An asreml object.
 #' @param ... Currently does nothing.
-#'
-#' @exportS3Method generics::glance
+#' @importFrom generics glance
+#' @export
 glance.asreml <- function(x, ...) {
   k <- x$nwv + nrow(x$coefficients$fixed)
   n <- nrow(x$mf)

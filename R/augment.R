@@ -12,7 +12,8 @@
 #' @param conf.level The confidence level to use for the interval created.
 #' @param ... Does nothing yet.
 #'
-#' @exportS3Method generics::augment
+#' @importFrom generics augment
+#' @export
 augment.asreml <- function(
   x,
   data = model.frame(x),
