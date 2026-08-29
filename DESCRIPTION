@@ -1,6 +1,6 @@
 Package: broom.asreml
 Title: Tidy Methods for 'ASReml-R' Objects
-Version: 0.0.0.9000
+Version: 0.1.0
 Authors@R: 
     c(person("Emi", "Tanaka", , "dr.emi.tanaka@gmail.com", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0002-1455-259X")),

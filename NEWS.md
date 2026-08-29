@@ -1,3 +1,3 @@
-# broom.asreml (development version)
+# broom.asreml 0.1.0
 
 * Initial CRAN submission.
