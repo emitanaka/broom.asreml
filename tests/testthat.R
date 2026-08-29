@@ -8,6 +8,5 @@
 
 library(testthat)
 library(broom.asreml)
-library(asreml)
 
 test_check("broom.asreml")
