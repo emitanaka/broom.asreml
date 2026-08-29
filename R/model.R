@@ -33,18 +33,25 @@ converge_asreml <- function(
   object
 }
 
-# Do not use below as asreml call not allowed for CRAN
-#
-# Fit the asreml model until it converges
-#
-# @param ... All the arguments for asreml::asreml
-# @param .iter_max The maximum number of iterations to perform.
-#
-# @export
-# asreml_converge <- function(..., .iter_max = 20, .step = 0.0001, .trace = TRUE) {
-#   fit <- asreml::asreml(...)
-#   converge_asreml(fit, iter_max = .iter_max, step = .step, trace = .trace)
-# }
+#' Fit the asreml model until it converges
+#'
+#' This function fits the asreml model until it converges or reaches the maximum number of iterations.
+#'
+#' @param ... All the arguments for asreml::asreml
+#' @param .iter_max The maximum number of iterations to perform.
+#' @param .step The step size for the update.
+#' @param .trace Whether to show the model update information.
+#' @return An updated `asreml` object.
+#' @export
+asreml_converge <- function(
+  ...,
+  .iter_max = 20,
+  .step = 0.0001,
+  .trace = TRUE
+) {
+  fit <- asreml::asreml(...)
+  converge_asreml(fit, iter_max = .iter_max, step = .step, trace = .trace)
+}
 
 #' Extract the model frame
 #'
