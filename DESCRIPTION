@@ -1,11 +1,11 @@
 Package: broom.asreml
-Title: Tidy methods for asreml objects
+Title: ‘Tidy Methods for ASReml Objects
 Version: 0.0.0.9000
 Authors@R: 
     c(person("Emi", "Tanaka", , "dr.emi.tanaka@gmail.com", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0002-1455-259X")),
       person(given = "Yidi", family = "Deng", role = c("ctb"), comment = c(ORCID = "0000-0003-0380-2124")))
-Description: Extracts and summaries asreml objects into a clean and tidy format.
+Description: Extracts, summarises, and tidies fitted 'asreml' model objects into consistent, analysis-ready formats similar to those provided by 'broom' and 'broom.mixed'. Provides convenient access to model coefficients, variance parameters, fitted values, residuals, predictions, and other commonly used model components, facilitating downstream data manipulation, visualisation, reporting, and model assessment.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
