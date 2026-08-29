@@ -111,12 +111,7 @@ tidy(fit, "wald")
 
 ``` r
 augment(fit)
-#> A design matrix was not found in the asreml object. Building a design matrix.
-#> ASReml Version 4.2 28/08/2026 18:33:22
-#>           LogLik        Sigma2     DF     wall
-#>  1     -855.0716      74463.85    136   18:33:22
-#>  2     -855.0716      74463.88    136   18:33:22
-#> # A tibble: 670 × 10
+#> # A tibble: 670 × 14
 #>    yield Column Row   Variety units mv    .fitted .resid  .hat .fixed
 #>    <int> <fct>  <fct> <fct>   <fct> <fct>   <dbl>  <dbl> <dbl>  <dbl>
 #>  1  2652 1      1     526     1     1       2538.  114.  8557.  2390.
@@ -130,4 +125,6 @@ augment(fit)
 #>  9  2424 9      1     526     9     1       2160.  264.  9957.  2390.
 #> 10  1899 10     1     526     10    1       1930.  -30.8 9310.  2390.
 #> # ℹ 660 more rows
+#> # ℹ 4 more variables: .fitted.marginal <dbl>, .fitted.conditional <dbl>,
+#> #   .resid.marginal <dbl>, .resid.conditional <dbl>
 ```
