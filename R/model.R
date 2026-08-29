@@ -51,6 +51,9 @@ converge_asreml <- function(
 #' @param formula An asreml object
 #' @param ... Does nothing currently.
 #' @importFrom stats model.frame
+#' @examples
+#' model.frame(fit_besag_met)
+#'
 #' @export
 model.frame.asreml <- function(formula, ...) {
   tibble::as_tibble(formula$mf)

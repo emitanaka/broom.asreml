@@ -21,3 +21,8 @@ A list containing the requested model matrices.
 \description{
 Get model matrices from an asreml object
 }
+\examples{
+\dontrun{
+asreml_model_matrix(fit_besag_met)
+}
+}

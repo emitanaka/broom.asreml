@@ -5,7 +5,7 @@
 \alias{fit_besag_met}
 \title{A MET model fitted to agridat::besag.met data}
 \format{
-An object of class \code{asreml} of length 36.
+An object of class \code{asreml} of length 35.
 }
 \usage{
 fit_besag_met
@@ -18,8 +18,7 @@ The following data was fitted.
        random =~ diag(county):block + diag(county):row + diag(county):col +
           fa(county, 2):gen,
        residual =~ dsum(~ar1(row):ar1(col) | county),
-       data = agridat::besag.met |>
-          dplyr::mutate(dplyr::across(c(col, row), as.factor)),
+       data = besag_met,
        aom = TRUE)
 }\if{html}{\out{</div>}}
 }

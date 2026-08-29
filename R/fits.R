@@ -7,8 +7,7 @@
 #'        random =~ diag(county):block + diag(county):row + diag(county):col +
 #'           fa(county, 2):gen,
 #'        residual =~ dsum(~ar1(row):ar1(col) | county),
-#'        data = agridat::besag.met |>
-#'           dplyr::mutate(dplyr::across(c(col, row), as.factor)),
+#'        data = besag_met,
 #'        aom = TRUE)
 #' ```
 #'
@@ -24,3 +23,11 @@
 #'        data = ChickWeight)
 #' ```
 "fit_chickweight"
+
+
+#' A multi-environment trial (MET) dataset
+#'
+#' This data is originally from `agridat::besag.met` and has been added so that
+#' the fitted model `fit_besag_met` can be used in examples and tests.
+#'
+"besag_met"

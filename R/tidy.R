@@ -18,10 +18,11 @@
 #' - constraint: the constraint used for the variance component
 #'
 #' @examples
+#' \dontrun{
 #' tidy(fit_besag_met, "fixed")
 #' tidy(fit_besag_met, "random")
 #' tidy(fit_besag_met, "vcomp")
-#'
+#' }
 #'
 #' @importFrom generics tidy
 #' @export

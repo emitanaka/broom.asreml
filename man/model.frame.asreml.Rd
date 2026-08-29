@@ -4,11 +4,17 @@
 \alias{model.frame.asreml}
 \title{Extract the model frame}
 \usage{
-\method{model.frame}{asreml}(x, ...)
+\method{model.frame}{asreml}(formula, ...)
 }
 \arguments{
-\item{x}{An asreml object}
+\item{formula}{An asreml object}
+
+\item{...}{Does nothing currently.}
 }
 \description{
 Extract the model frame
+}
+\examples{
+model.frame(fit_besag_met)
+
 }

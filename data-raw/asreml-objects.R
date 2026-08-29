@@ -11,7 +11,7 @@ fit_chickweight <- asreml(
 )
 fit_chickweight <- converge_asreml(fit_chickweight)
 usethis::use_data(fit_chickweight, overwrite = TRUE)
-besag.met <- agridat::besag.met |>
+besag_met <- agridat::besag.met |>
   dplyr::mutate(dplyr::across(c(col, row), as.factor))
 
 asreml.options(Cfixed = TRUE)
@@ -22,11 +22,11 @@ fit_besag_met <- asreml(
     diag(county):col +
     fa(county, k = 2):gen,
   residual = ~ dsum(~ ar1(row):ar1(col) | county),
-  data = besag.met,
+  data = besag_met,
   aom = TRUE
 )
 fit_besag_met <- converge_asreml(fit_besag_met)
 
 
 usethis::use_data(fit_besag_met, overwrite = TRUE)
-usethis::use_data(besag.met, overwrite = TRUE)
+usethis::use_data(besag_met, overwrite = TRUE)

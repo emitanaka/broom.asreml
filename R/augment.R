@@ -12,6 +12,11 @@
 #' @param conf_level The confidence level to use for the interval created.
 #' @param ... Does nothing yet.
 #'
+#' @examples
+#' \dontrun{
+#' augment(fit_besag_met)
+#' }
+#'
 #' @return
 #' Returns a tibble object with each row corresponding to one observation and columns as below. The first 4 columns adopt the convention from broom.mixed and broom packages.
 #'

@@ -4,6 +4,10 @@
 #' @param which A character vector specifying which matrices to return.
 #'   Options include "X", "Z", "G", "R", "V", "W", "Vinv", "Ginv", "Rinv", "P", and "data".
 #' @return A list containing the requested model matrices.
+#' @examples
+#' \dontrun{
+#' asreml_model_matrix(fit_besag_met)
+#' }
 #' @export
 asreml_model_matrix <- function(
   model,

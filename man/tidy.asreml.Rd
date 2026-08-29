@@ -30,9 +30,10 @@ Returns a tibble with the following columns
 Get the model components.
 }
 \examples{
+\dontrun{
 tidy(fit_besag_met, "fixed")
 tidy(fit_besag_met, "random")
 tidy(fit_besag_met, "vcomp")
-
+}
 
 }

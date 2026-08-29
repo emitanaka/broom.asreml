@@ -26,9 +26,9 @@ variables.}
 
 \item{interval}{The type of confidence interval.}
 
-\item{...}{Does nothing yet.}
+\item{conf_level}{The confidence level to use for the interval created.}
 
-\item{conf.level}{The confidence level to use for the interval created.}
+\item{...}{Does nothing yet.}
 }
 \value{
 Returns a tibble object with each row corresponding to one observation and columns as below. The first 4 columns adopt the convention from broom.mixed and broom packages.
@@ -51,4 +51,10 @@ The columns with marginal and conditional suffixes are added to distinguish the 
 \description{
 If the fitted model includes \code{aom = TRUE} then also computes the
 studentised conditional residual.
+}
+\examples{
+\dontrun{
+augment(fit_besag_met)
+}
+
 }

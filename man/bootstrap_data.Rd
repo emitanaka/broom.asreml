@@ -13,6 +13,14 @@ bootstrap_data(model, nsim = 1, resample = c("random", "residual"))
 
 \item{resample}{The type of resampling to perform. Either "random" or "residual".}
 }
+\value{
+A data.frame with bootstrapped data. The data.frame has the same columns as the original data used to fit the model, plus an additional column \code{.sim} indicating the simulation number.
+}
 \description{
 Simulate the data for a given asreml model
+}
+\examples{
+\dontrun{
+bootstrap_data(fit_besag_met, nsim = 2, resample = "random")
+}
 }

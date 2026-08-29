@@ -5,6 +5,11 @@
 #' @param model An object of class `asreml`.
 #' @param nsim The number of simulations to perform.
 #' @param resample The type of resampling to perform. Either "random" or "residual".
+#' @examples
+#' \dontrun{
+#' bootstrap_data(fit_besag_met, nsim = 2, resample = "random")
+#' }
+#' @return A data.frame with bootstrapped data. The data.frame has the same columns as the original data used to fit the model, plus an additional column `.sim` indicating the simulation number.
 #' @export
 bootstrap_data <- function(
   model,

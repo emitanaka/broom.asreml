@@ -11,6 +11,24 @@
 
 \item{...}{Currently does nothing.}
 }
+\value{
+A tibble with the following columns:
+\itemize{
+\item \code{sigma}: the residual standard error
+\item \code{logLik}: the residual log likelihood
+\item \code{deviance}: the model deviance
+\item \code{df.residual}: the residual degrees of freedom
+\item \code{AIC}: the Akaike information criterion
+\item \code{BIC}: the Bayesian information criterion
+\item \code{nobs}: the number of observations
+}
+}
 \description{
 Provides a single row of model summaries
+}
+\examples{
+\dontrun{
+glance(fit_besag_met)
+}
+
 }
