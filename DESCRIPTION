@@ -5,10 +5,11 @@ Authors@R:
     c(person("Emi", "Tanaka", , "dr.emi.tanaka@gmail.com", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0002-1455-259X")),
       person(given = "Yidi", family = "Deng", role = c("ctb"), comment = c(ORCID = "0000-0003-0380-2124")))
-Description: Extracts, summarises, and tidies fitted 'asreml' model objects into consistent, analysis-ready formats similar to those provided by 'broom' and 'broom.mixed'. Provides convenient access to model coefficients, variance parameters, fitted values, residuals, predictions, and other commonly used model components, facilitating downstream data manipulation, visualisation, reporting, and model assessment.
+Description: Extracts, summarises, and tidies fitted 'asreml' model objects into consistent, analysis-ready formats similar to those provided by 'broom' and 'broom.mixed'. Provides convenient access to model coefficients, variance parameters, fitted values, residuals, predictions, and other commonly used model components, facilitating downstream data manipulation, visualisation, reporting, and model assessment. 'asreml' can be obtained from VSNi <https://vsni.co.uk/>.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
+Enhances: asreml
 Imports: 
     asremlPlus,
     cli,
@@ -21,7 +22,7 @@ Depends:
 LazyData: true
 SystemRequirements:
     asreml (>= 4.2.0)
-URL: https://github.com/anu-aagi/broom.asreml
+URL: https://github.com/anu-aagi/broom.asreml, https://anu-aagi.github.io/broom.asreml/
 BugReports: https://github.com/anu-aagi/broom.asreml/issues
 Suggests: 
     testthat (>= 3.0.0)
