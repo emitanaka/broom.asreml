@@ -21,11 +21,13 @@ bootstrap_data <- function(
   for (isim in seq_len(nsim)) {
     if (resample == "residual") {
       L <- t(Matrix::chol(model$matrix$R))
-      data[[response]] <- as.vector(model$linear.predictors + L %*% rnorm(n))
+      data[[response]] <- as.vector(
+        model$linear.predictors + L %*% stats::rnorm(n)
+      )
     } else if (resample == "random") {
       L <- t(Matrix::chol(model$matrix$V))
       data[[response]] <- as.vector(
-        get_fixed_fit_asreml(model) + L %*% rnorm(n)
+        get_fixed_fit_asreml(model) + L %*% stats::rnorm(n)
       )
     }
     data[[".sim"]] <- isim

@@ -44,7 +44,7 @@ tidy.asreml <- function(
       sr <- x$coefficients$sparse
       fcc <- clean_asreml_coef(fr)
       scc <- clean_asreml_coef(sr)
-      tibble::tibble(
+      res <- tibble::tibble(
         term = c(fcc$term, scc$term),
         group = c(fcc$group, scc$group),
         level = c(fcc$level, scc$level),
@@ -53,20 +53,22 @@ tidy.asreml <- function(
           sqrt(x$vcoeff$fixed * x$sigma2),
           sqrt(x$vcoeff$sparse * x$sigma2)
         )
-      ) |>
-        dplyr::mutate(statistic = estimate / std.error)
+      )
+      res$statistic <- res$estimate / res$std.error
+      res
     },
     "random" = {
       rr <- x$coefficients$random
       cc <- clean_asreml_coef(rr)
-      tibble::tibble(
+      res <- tibble::tibble(
         term = cc$term,
         group = cc$group,
         level = cc$level,
         estimate = cc$coef,
         std.error = sqrt(x$vcoeff$random * x$sigma2)
-      ) |>
-        dplyr::mutate(statistic = estimate / std.error)
+      )
+      res$statistic <- res$estimate / res$std.error
+      res
     },
     "vcomp" = {
       vr <- summary(x)$varcomp

@@ -11,7 +11,6 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 Imports: 
     asremlPlus,
-    boot,
     cli,
     dplyr,
     generics,

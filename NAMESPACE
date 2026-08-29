@@ -15,3 +15,7 @@ importFrom(generics,
   glance,
   tidy
 )
+importFrom(stats,
+  model.frame,
+  update
+)

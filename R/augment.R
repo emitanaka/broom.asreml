@@ -9,7 +9,7 @@
 #'       variables.
 #' @param se_fit Whether to get the .se.fit column or not.
 #' @param interval The type of confidence interval.
-#' @param conf.level The confidence level to use for the interval created.
+#' @param conf_level The confidence level to use for the interval created.
 #' @param ... Does nothing yet.
 #'
 #' @return
@@ -79,15 +79,17 @@ augment.asreml <- function(
   }
 
   if (interval == "confidence") {
-    res$.lower <- res$.fitted - qnorm(1 - (1 - conf_level) / 2) * se_fit_vals
-    res$.upper <- res$.fitted + qnorm(1 - (1 - conf_level) / 2) * se_fit_vals
+    res$.lower <- res$.fitted -
+      stats::qnorm(1 - (1 - conf_level) / 2) * se_fit_vals
+    res$.upper <- res$.fitted +
+      stats::qnorm(1 - (1 - conf_level) / 2) * se_fit_vals
   }
 
   if (interval == "prediction") {
     res$.lower <- res$.fitted -
-      qnorm(1 - (1 - conf_level) / 2) * sqrt(se_fit_vals^2 + x$sigma2)
+      stats::qnorm(1 - (1 - conf_level) / 2) * sqrt(se_fit_vals^2 + x$sigma2)
     res$.upper <- res$.fitted +
-      qnorm(1 - (1 - conf_level) / 2) * sqrt(se_fit_vals^2 + x$sigma2)
+      stats::qnorm(1 - (1 - conf_level) / 2) * sqrt(se_fit_vals^2 + x$sigma2)
   }
 
   res

@@ -48,9 +48,10 @@ converge_asreml <- function(
 
 #' Extract the model frame
 #'
-#' @param x An asreml object
-#'
+#' @param formula An asreml object
+#' @param ... Does nothing currently.
+#' @importFrom stats model.frame
 #' @export
-model.frame.asreml <- function(x, ...) {
-  tibble::as_tibble(x$mf)
+model.frame.asreml <- function(formula, ...) {
+  tibble::as_tibble(formula$mf)
 }

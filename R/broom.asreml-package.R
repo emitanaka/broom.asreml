@@ -1,4 +1,5 @@
 #' @keywords internal
+#' @importFrom stats update
 "_PACKAGE"
 
 ## usethis namespace: start

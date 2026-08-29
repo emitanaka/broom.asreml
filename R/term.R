@@ -2,7 +2,7 @@ map_fixed_terms <- function(x, term) {
   res <- tidy(x, type = "fixed")
   res <- res[grepl(paste0("^", term), res$term), ]
   nm <- gsub(paste0("^", term, "_?"), "", res$term)
-  setNames(res$estimate, nm)
+  stats::setNames(res$estimate, nm)
 }
 
 has_interaction <- function(x) {
@@ -26,7 +26,7 @@ map_id_terms <- function(x, term, type = c("random", "vcomp")) {
     res <- res[grepl(paste0("^", term), res$term) & !has_interaction(term), ]
     nm <- gsub(paste0("^", term, "_?"), "", res$term)
   }
-  setNames(res$estimate, nm)
+  stats::setNames(res$estimate, nm)
 }
 
 map_fa_terms <- function(x, term, type = c("random", "vcomp")) {
