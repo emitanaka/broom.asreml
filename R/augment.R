@@ -34,9 +34,9 @@ augment.asreml <- function(
   x,
   data = model.frame(x),
   newdata = NULL,
-  #se_fit = FALSE,
-  #interval = c("none", "confidence", "prediction"),
-  #conf_level = 0.95,
+  se_fit = FALSE,
+  interval = c("none", "confidence", "prediction"),
+  conf_level = 0.95,
   ...
 ) {
   if (!is.null(x$call$family)) {
@@ -44,6 +44,8 @@ augment.asreml <- function(
       "`augment.asreml` may not return correct results for models with a family."
     )
   }
+  interval <- match.arg(interval)
+
   if (is.null(newdata)) {
     res <- data
     res$.fitted <- x$linear.predictors
@@ -61,6 +63,33 @@ augment.asreml <- function(
   } else {
     cli::cli_alert_danger("Not yet implemented")
   }
+  if (se_fit | !"none" %in% interval) {
+    x <- asreml_model_matrix(x)
+    CinvXX <- PEV_XX(x)
+    CinvXZ <- PEV_XZ(x)
+    CinvZZ <- PEV_ZZ(x)
+    diag_DCinvD <- diag_ABC(x$matrix$X, CinvXX, t(as.matrix(x$matrix$X))) +
+      diag_ABC(x$matrix$Z, CinvZZ, t(as.matrix(x$matrix$Z))) +
+      2 * diag_ABC(x$matrix$X, CinvXZ, t(as.matrix(x$matrix$Z)))
+    se_fit_vals <- sqrt(diag_DCinvD)
+  }
+
+  if (se_fit) {
+    res$.se.fit <- se_fit_vals
+  }
+
+  if (interval == "confidence") {
+    res$.lower <- res$.fitted - qnorm(1 - (1 - conf_level) / 2) * se_fit_vals
+    res$.upper <- res$.fitted + qnorm(1 - (1 - conf_level) / 2) * se_fit_vals
+  }
+
+  if (interval == "prediction") {
+    res$.lower <- res$.fitted -
+      qnorm(1 - (1 - conf_level) / 2) * sqrt(se_fit_vals^2 + x$sigma2)
+    res$.upper <- res$.fitted +
+      qnorm(1 - (1 - conf_level) / 2) * sqrt(se_fit_vals^2 + x$sigma2)
+  }
+
   res
 }
 

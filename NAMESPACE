@@ -4,7 +4,11 @@ S3method(augment,asreml)
 S3method(glance,asreml)
 S3method(model.frame,asreml)
 S3method(tidy,asreml)
-export(bootstrap_stat)
+export(PEV_XX)
+export(PEV_XZ)
+export(PEV_ZZ)
+export(asreml_model_matrix)
+export(bootstrap_data)
 export(converge_asreml)
 importFrom(generics,
   augment,

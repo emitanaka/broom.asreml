@@ -4,12 +4,14 @@
 \alias{bootstrap_data}
 \title{Parametric bootstrap for an asreml model}
 \usage{
-bootstrap_data(model, nsim = 1, random = NULL, type = "parametric")
+bootstrap_data(model, nsim = 1, resample = c("random", "residual"))
 }
 \arguments{
-\item{model}{An \code{asreml} fitted model. Must be fitted with \code{model.frame = TRUE}.}
+\item{model}{An object of class \code{asreml}.}
 
-\item{nsim}{Integer. Number of bootstrap replicates.}
+\item{nsim}{The number of simulations to perform.}
+
+\item{resample}{The type of resampling to perform. Either "random" or "residual".}
 }
 \description{
 Simulate the data for a given asreml model

@@ -1,5 +1,4 @@
 augment(fit_besag_met)
-
 coef(fit_besag_met)$fixed
 tidy(fit_besag_met, "fixed")
 

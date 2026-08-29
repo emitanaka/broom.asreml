@@ -4,7 +4,15 @@
 \alias{augment.asreml}
 \title{Augment data with information from an asreml object}
 \usage{
-\method{augment}{asreml}(x, data = model.frame(x), newdata = NULL, ...)
+\method{augment}{asreml}(
+  x,
+  data = model.frame(x),
+  newdata = NULL,
+  se_fit = FALSE,
+  interval = c("none", "confidence", "prediction"),
+  conf_level = 0.95,
+  ...
+)
 }
 \arguments{
 \item{x}{An asreml object.}
@@ -14,11 +22,11 @@
 \item{newdata}{A new data containing all the variables in the original data except the response
 variables.}
 
-\item{...}{Does nothing yet.}
-
 \item{se_fit}{Whether to get the .se.fit column or not.}
 
 \item{interval}{The type of confidence interval.}
+
+\item{...}{Does nothing yet.}
 
 \item{conf.level}{The confidence level to use for the interval created.}
 }
