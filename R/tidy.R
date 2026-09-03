@@ -1,3 +1,8 @@
+#' @importFrom generics tidy
+#' @export
+generics::tidy
+
+
 #' Tidy an asreml object
 #'
 #' Get the model components.
@@ -24,7 +29,6 @@
 #' tidy(fit_besag_met, "vcomp")
 #' }
 #'
-#' @importFrom generics tidy
 #' @export
 tidy.asreml <- function(
   x,

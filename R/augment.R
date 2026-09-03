@@ -1,3 +1,7 @@
+#' @importFrom generics augment
+#' @export
+generics::augment
+
 #' Augment data with information from an asreml object
 #'
 #' If the fitted model includes `aom = TRUE` then also computes the
@@ -33,7 +37,6 @@
 #' - `.resid.conditional`: the residuals for conditional model \eqn{\boldsymbol{y} - \mathbf{X}\hat{\boldsymbol{\beta}} - \mathbf{Z} \tilde{\boldsymbol{u}}}
 #' - `.std.resid.conditional`: the studentised conditional residual
 #'
-#' @importFrom generics augment
 #' @export
 augment.asreml <- function(
   x,
