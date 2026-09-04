@@ -13,6 +13,7 @@ export(augment)
 export(bootstrap_data)
 export(converge_asreml)
 export(glance)
+export(is_outlier)
 export(tidy)
 importFrom(generics,
   augment,
