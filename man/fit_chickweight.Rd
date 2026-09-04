@@ -5,7 +5,7 @@
 \alias{fit_chickweight}
 \title{A random intercent and random slope model}
 \format{
-An object of class \code{asreml} of length 35.
+An object of class \code{asreml} of length 34.
 }
 \usage{
 fit_chickweight

@@ -9,8 +9,11 @@ export(PEV_XZ)
 export(PEV_ZZ)
 export(asreml_converge)
 export(asreml_model_matrix)
+export(augment)
 export(bootstrap_data)
 export(converge_asreml)
+export(glance)
+export(tidy)
 importFrom(generics,
   augment,
   glance,

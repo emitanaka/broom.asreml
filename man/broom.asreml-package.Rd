@@ -4,9 +4,9 @@
 \name{broom.asreml-package}
 \alias{broom.asreml}
 \alias{broom.asreml-package}
-\title{broom.asreml: Tidy methods for asreml objects}
+\title{broom.asreml: Tidy Methods for 'ASReml-R' Objects}
 \description{
-Extracts and summaries asreml objects into a clean and tidy format.
+Extracts, summarises, and tidies fitted 'asreml' model objects into consistent, analysis-ready formats similar to those provided by 'broom' and 'broom.mixed'. Provides convenient access to model coefficients, variance parameters, fitted values, residuals, predictions, and other commonly used model components, facilitating downstream data manipulation, visualisation, reporting, and model assessment. 'asreml' can be obtained from \url{https://vsni.co.uk/}.
 }
 \seealso{
 Useful links:
